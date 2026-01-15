@@ -1,0 +1,29 @@
+name: Unzip My Files
+on:
+  push:
+    branches:
+      - main  # هيشتغل لما ترفع أي حاجة على فرع المين
+
+jobs:
+  unzip:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write  # دي أهم سطر عشان تسمح للأكشن يحفظ الملفات المفكوكة
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4  # استخدام v4 لتجنب أخطاء التوافق
+
+      - name: Extract ZIP File
+        run: |
+          # فك ضغط أي ملف ZIP موجود في المجلد الرئيسي
+          unzip -o "*.zip" -d .
+          # حذف ملف الـ ZIP بعد الفك عشان المستودع يبقى نضيف
+          rm *.zip
+
+      - name: Save Extracted Files
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git add .
+          git commit -m "Auto unzip files and update repository" || echo "No changes to commit"
+          git push
