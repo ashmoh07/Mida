@@ -1,0 +1,7 @@
+{
+  "name": "Mida Steganography Pro",
+  "description": "A professional-grade steganography tool that encrypts files using AES and hides them inside images using the Least Significant Bit (LSB) method. Features secure password validation, multi-language support (Arabic/English), and Material 3 design.",
+  "requestFramePermissions": [
+    "camera"
+  ]
+}
